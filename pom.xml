@@ -1,3 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
@@ -13,6 +14,7 @@
     <maven.compiler.target>11</maven.compiler.target>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <junit.jupiter.version>5.10.2</junit.jupiter.version>
+    <test.report.dir>${project.basedir}/test-reports</test.report.dir>
   </properties>
 
   <dependencies>
@@ -28,6 +30,18 @@
       <version>${junit.jupiter.version}</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter-params</artifactId>
+      <version>${junit.jupiter.version}</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.junit.platform</groupId>
+      <artifactId>junit-platform-launcher</artifactId>
+      <version>1.10.2</version>
+      <scope>test</scope>
+    </dependency>
   </dependencies>
 
   <build>
@@ -38,8 +52,68 @@
         <version>3.2.5</version>
         <configuration>
           <useModulePath>false</useModulePath>
+          <trimStackTrace>false</trimStackTrace>
+          <printSummary>true</printSummary>
+          <redirectTestOutputToFile>false</redirectTestOutputToFile>
+          <includes>
+            <include>**/*Test.java</include>
+            <include>**/*Tests.java</include>
+          </includes>
+          <parallel>none</parallel>
+          <threadCount>1</threadCount>
+          <!-- Reports will be generated in target/surefire-reports by default -->
         </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-surefire-report-plugin</artifactId>
+        <version>3.2.5</version>
+        <executions>
+          <execution>
+            <id>generate-html-report</id>
+            <phase>test</phase>
+            <goals>
+              <goal>report-only</goal>
+            </goals>
+            <configuration>
+              <outputDirectory>${test.report.dir}/html</outputDirectory>
+              <outputName>test-report</outputName>
+              <showSuccess>true</showSuccess>
+              <reportsDirectory>${project.build.directory}/surefire-reports</reportsDirectory>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <version>3.1.0</version>
+        <executions>
+          <execution>
+            <id>copy-test-reports</id>
+            <phase>test</phase>
+            <configuration>
+              <target>
+                <!-- Create report directories -->
+                <mkdir dir="${test.report.dir}/xml"/>
+                <mkdir dir="${test.report.dir}/html"/>
+
+                <!-- Copy XML reports from target/surefire-reports to test-reports/xml -->
+                <copy todir="${test.report.dir}/xml" overwrite="true" failonerror="false" quiet="true">
+                  <fileset dir="${project.build.directory}/surefire-reports" includes="*.xml" erroronmissingdir="false"/>
+                </copy>
+              </target>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
       </plugin>
     </plugins>
   </build>
+
+
 </project>
