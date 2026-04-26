@@ -80,6 +80,17 @@ public class InputFloatTest {
         return Stream.of(InputUtilsParams.INVALID_THEN_VALID);
     }
 
+    @Test
+    @DisplayName("Empty input stream throws NoSuchElementException")
+    void testEmptyInputThrowsException() {
+        setInput("");
+        InputUtils inputUtils = new InputUtils();
+
+        assertThrows(java.util.NoSuchElementException.class, () ->
+            inputUtils.inputFloat("Enter value")
+        );
+    }
+
     @ParameterizedTest(name = "{index}: {0}")
     @MethodSource("provideBoundaryValues")
     @DisplayName("Boundary value validation")
