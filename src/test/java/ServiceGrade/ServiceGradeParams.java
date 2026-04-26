@@ -4,11 +4,16 @@ public class ServiceGradeParams {
 
     // Parameters for getGrade() method
     public static class GradeTestCase {
+
         public final float nilai;
         public final char expectedGrade;
         public final String description;
 
-        public GradeTestCase(float nilai, char expectedGrade, String description) {
+        public GradeTestCase(
+            float nilai,
+            char expectedGrade,
+            String description
+        ) {
             this.nilai = nilai;
             this.expectedGrade = expectedGrade;
             this.description = description;
@@ -17,11 +22,16 @@ public class ServiceGradeParams {
 
     // Parameters for getStatus() method
     public static class StatusTestCase {
+
         public final float nilai;
         public final String expectedStatus;
         public final String description;
 
-        public StatusTestCase(float nilai, String expectedStatus, String description) {
+        public StatusTestCase(
+            float nilai,
+            String expectedStatus,
+            String description
+        ) {
             this.nilai = nilai;
             this.expectedStatus = expectedStatus;
             this.description = description;
@@ -103,18 +113,46 @@ public class ServiceGradeParams {
         new StatusTestCase(70, "Lulus", "Status Lulus - Middle range (70)"),
         new StatusTestCase(85, "Lulus", "Status Lulus - High value (85)"),
         new StatusTestCase(100, "Lulus", "Status Lulus - Maximum (100)"),
-        new StatusTestCase(60.5f, "Lulus", "Status Lulus - Decimal above 60 (60.5)"),
+        new StatusTestCase(
+            60.5f,
+            "Lulus",
+            "Status Lulus - Decimal above 60 (60.5)"
+        ),
         new StatusTestCase(75, "Lulus", "Status Lulus - Grade B boundary (75)"),
     };
 
     // Status Test Data - TIDAK LULUS (< 60)
     public static final StatusTestCase[] STATUS_TIDAK_LULUS_TESTS = {
-        new StatusTestCase(59.9f, "Tidak Lulus", "Status Tidak Lulus - Just below 60 (59.9)"),
-        new StatusTestCase(59, "Tidak Lulus", "Status Tidak Lulus - One below (59)"),
-        new StatusTestCase(50, "Tidak Lulus", "Status Tidak Lulus - Grade D (50)"),
-        new StatusTestCase(0, "Tidak Lulus", "Status Tidak Lulus - Minimum (0)"),
-        new StatusTestCase(30, "Tidak Lulus", "Status Tidak Lulus - Middle below 60 (30)"),
-        new StatusTestCase(45, "Tidak Lulus", "Status Tidak Lulus - Near 50 (45)"),
+        new StatusTestCase(
+            59.9f,
+            "Tidak Lulus",
+            "Status Tidak Lulus - Just below 60 (59.9)"
+        ),
+        new StatusTestCase(
+            59,
+            "Tidak Lulus",
+            "Status Tidak Lulus - One below (59)"
+        ),
+        new StatusTestCase(
+            50,
+            "Tidak Lulus",
+            "Status Tidak Lulus - Grade D (50)"
+        ),
+        new StatusTestCase(
+            0,
+            "Tidak Lulus",
+            "Status Tidak Lulus - Minimum (0)"
+        ),
+        new StatusTestCase(
+            30,
+            "Tidak Lulus",
+            "Status Tidak Lulus - Middle below 60 (30)"
+        ),
+        new StatusTestCase(
+            45,
+            "Tidak Lulus",
+            "Status Tidak Lulus - Near 50 (45)"
+        ),
     };
 
     // Combined Status Test Data

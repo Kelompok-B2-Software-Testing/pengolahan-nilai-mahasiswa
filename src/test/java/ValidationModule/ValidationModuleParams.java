@@ -4,6 +4,7 @@ public class ValidationModuleParams {
 
     // Test case structure
     public static class TestCase {
+
         public final float input;
         public final boolean expected;
         public final String description;
@@ -34,7 +35,7 @@ public class ValidationModuleParams {
             new TestCase(99, true, "TC009: Just below maximum (99)"),
             new TestCase(60, true, "TC010: Passing grade boundary (60)"),
             new TestCase(85, true, "TC011: Grade A boundary (85)"),
-            new TestCase(70, true, "TC012: Grade B boundary (70)")
+            new TestCase(70, true, "TC012: Grade B boundary (70)"),
         };
     }
 
@@ -50,7 +51,7 @@ public class ValidationModuleParams {
             new TestCase(-100, false, "TC019: Negative boundary (-100)"),
             new TestCase(200.5f, false, "TC020: Much above maximum (200.5)"),
             new TestCase(500, false, "TC021: Extremely above maximum (500)"),
-            new TestCase(-999, false, "TC022: Extremely negative (-999)")
+            new TestCase(-999, false, "TC022: Extremely negative (-999)"),
         };
     }
 
@@ -72,7 +73,9 @@ public class ValidationModuleParams {
         if (index >= 0 && index < allCases.length) {
             return allCases[index];
         }
-        throw new IndexOutOfBoundsException("Test case index out of bounds: " + index);
+        throw new IndexOutOfBoundsException(
+            "Test case index out of bounds: " + index
+        );
     }
 
     // Get total test cases count

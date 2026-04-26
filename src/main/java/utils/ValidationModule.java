@@ -2,6 +2,7 @@ package utils;
 
 // validation utility
 public class ValidationModule {
+
     // input : float numeric
     // output : true or false if the numeric input is in constraint
     // for defining what is valid meaning in this program
